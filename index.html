@@ -36,15 +36,32 @@
     <audio id="audio" src="dop/Music.mp3"></audio> <!-- Замените на URL вашего аудиофайла -->
 
     <script>
-        const playButton = document.getElementById('playButton');
-        const audio = document.getElementById('audio');
-
-        playButton.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
+        // Автовоспроизведение при загрузке страницы
+        window.onload = function() {
+            const music = document.getElementById('backgroundMusic');
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Автовоспроизведение заблокировано. Нажмите 'Воспроизвести'");
+                });
             }
-        });
-    </script>
+        };
 
+        function playMusic() {
+            document.getElementById('backgroundMusic').play();
+        }
+
+        function pauseMusic() {
+            document.getElementById('backgroundMusic').pause();
+        }
+
+        function stopMusic() {
+            const music = document.getElementById('backgroundMusic');
+            music.pause();
+            music.currentTime = 0;
+        }
+    </script>
 </body>
 </html>
+
