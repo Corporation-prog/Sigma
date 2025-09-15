@@ -3,92 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Музыкальный сайт</title>
+    <title>Кнопка воспроизведения музыки</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             margin: 0;
+            background-color: #217ee7;
         }
-        .container {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        .controls {
-            margin-top: 20px;
-        }
-        button {
-            background: #ff6b6b;
+        .play-button {
+            width: 500px;
+            height: 500px;
+            background-image: url('dop/photo.png'); /* Замените на URL вашего изображения */
+            background-size: cover;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            color: white;
             cursor: pointer;
-            font-size: 16px;
-            margin: 0 10px;
-            transition: background 0.3s;
+            outline: none;
+            border-radius: 10px;
+            transition: transform 0.2s;
         }
-        button:hover {
-            background: #ee5a52;
+        .play-button:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎵 Добро пожаловать! 🎵</h1>
-        <p>Музыка включится автоматически</p>
-        
-        <div class="controls">
-            <button onclick="playMusic()">▶️ Воспроизвести</button>
-            <button onclick="pauseMusic()">⏸️ Пауза</button>
-            <button onclick="stopMusic()">⏹️ Остановить</button>
-        </div>
-    </div>
 
-    <audio id="backgroundMusic" loop>
-        <!-- Замените ссылку на вашу песню -->
-        <source src="dop/Music.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
-    </audio>
+    <button class="play-button" id="playButton"></button>
+    
+    <audio id="audio" src="dop/Music.mp3"></audio> <!-- Замените на URL вашего аудиофайла -->
 
     <script>
-        // Автовоспроизведение при загрузке страницы
-        window.onload = function() {
-            const music = document.getElementById('backgroundMusic');
-            const playPromise = music.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Автовоспроизведение заблокировано. Нажмите 'Воспроизвести'");
-                });
+        const playButton = document.getElementById('playButton');
+        const audio = document.getElementById('audio');
+
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
             }
-        };
-
-        function playMusic() {
-            document.getElementById('backgroundMusic').play();
-        }
-
-        function pauseMusic() {
-            document.getElementById('backgroundMusic').pause();
-        }
-
-        function stopMusic() {
-            const music = document.getElementById('backgroundMusic');
-            music.pause();
-            music.currentTime = 0;
-        }
+        });
     </script>
+
 </body>
 </html>
